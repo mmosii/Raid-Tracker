@@ -22,6 +22,7 @@ public class RssFeedService {
     private final Set<String> subRbSet = Set.of("Cabrio", "Golkonda", "Kernon", "Hallate");
     private final HashMap<String, LocalDateTime> rbTime = new HashMap<>();
     private String serverID = "0";
+    private String userId = "0";
 
     public Set<String> getRbList() {
         return rbList;
@@ -33,6 +34,10 @@ public class RssFeedService {
 
     public HashMap<String, LocalDateTime> getRbTime() {
         return rbTime;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public RssFeedService() {
@@ -67,7 +72,9 @@ public class RssFeedService {
                                 + " - " + publishTime.plusDays(1).plusHours(6).format(DateTimeFormatter.ofPattern("dd.MM HH:mm"));
                     }
                     consoleHandler.print(message);
-                    rbTrackerTgBot.sendMessage("819794069", message);
+                    if (!userId.equals("0")) {
+                        rbTrackerTgBot.sendMessage(userId, message);
+                    }
                 }
             }
         } catch (Exception e) {

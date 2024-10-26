@@ -35,6 +35,10 @@ public class TrackerController {
     @FXML
     private TextField newBossField;
     @FXML
+    private TextField idInputField;
+    @FXML
+    private Button updateUserId;
+    @FXML
     private Button addNewBossButton;
     @FXML
     private Button removeBossButton;
@@ -51,6 +55,8 @@ public class TrackerController {
     @FXML
     private VBox infoPane;
     @FXML
+    private VBox paymentPane;
+    @FXML
     private Button infoButton;
     @FXML
     private Button backButton;
@@ -64,6 +70,14 @@ public class TrackerController {
     private Button hunter;
     @FXML
     private Button medea;
+    @FXML
+    private Button thanksButton;
+    @FXML
+    private Button paypalButton;
+    @FXML
+    private Button cryptoButton;
+    @FXML
+    private Button backPaymentButton;
 
     private final RssFeedService rssFeedService = new RssFeedService();
 
@@ -73,16 +87,47 @@ public class TrackerController {
         createBossEntries();
         rbList.getItems().addAll(rssFeedService.getRbList());
         infoButton.setOnAction(e -> showInfoPane());
+        thanksButton.setOnAction(e -> showPaymentPane());
+        backPaymentButton.setOnAction(e -> showMainPane());
         backButton.setOnAction(e -> showMainPane());
         infoButton.setOnMouseEntered(e -> infoButton.setStyle("-fx-background-color: #FFD700; -fx-font-size: 16px; " +
                 "-fx-padding: 10; -fx-border-color: black; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
         infoButton.setOnMouseExited(e -> infoButton.setStyle("-fx-background-color: #FFC300; -fx-font-size: 16px; " +
                 "-fx-padding: 10; -fx-border-color: black; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
+        thanksButton.setOnMouseEntered(e -> thanksButton.setStyle("-fx-background-color: #ADD8E6; -fx-font-size: 12px; " +
+                "-fx-padding: 5; -fx-border-color: black; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
+        thanksButton.setOnMouseExited(e -> thanksButton.setStyle("-fx-background-color: #87CEFA; -fx-font-size: 12px; " +
+                "-fx-padding: 5; -fx-border-color: black; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
         addNewBossButton.setOnAction(e -> {
             String newBossName = newBossField.getText();
             if (!newBossName.isEmpty()) {
                 addNewBoss(newBossName);
                 newBossField.clear();
+            }
+        });
+        paypalButton.setOnAction(e -> {
+            try {
+                URI uri = new URI("https://www.paypal.com/donate/?hosted_button_id=7TXS8PESXQKMY");
+                Desktop.getDesktop().browse(uri);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        cryptoButton.setOnAction(e -> {
+            try {
+                URI uri = new URI("https://nowpayments.io/donation/koljamosiy");
+                Desktop.getDesktop().browse(uri);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        updateUserId.setOnAction(e -> {
+            String userId = idInputField.getText();
+            if (!userId.isEmpty()) {
+                rssFeedService.setUserId(userId);
+                idInputField.clear();
             }
         });
 
@@ -371,32 +416,24 @@ public class TrackerController {
         return String.format("%02d:%02d", hours, remainingMinutes);
     }
 
-    @FXML
-    private void handleInfoButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/InfoWindow.fxml"));
-            Parent root = loader.load();
-
-            Stage infoStage = new Stage();
-            infoStage.setTitle("Raid Tracker Guide");
-            infoStage.initModality(Modality.APPLICATION_MODAL);
-            infoStage.setScene(new Scene(root, 600, 400));
-
-            infoStage.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void showInfoPane() {
         rightMenu.setVisible(false);
         bossGrid.setVisible(false);
         infoPane.setVisible(true);
+        paymentPane.setVisible(false);
+    }
+
+    private void showPaymentPane() {
+        rightMenu.setVisible(false);
+        bossGrid.setVisible(false);
+        infoPane.setVisible(false);
+        paymentPane.setVisible(true);
     }
 
     private void showMainPane() {
         rightMenu.setVisible(true);
         bossGrid.setVisible(true);
         infoPane.setVisible(false);
+        paymentPane.setVisible(false);
     }
 }
