@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tracker.raidtracker.controller.InfoWindowController">
+    <Label text="How to use this application:" wrapText="true" style="-fx-font-size: 16px;"/>
+    <Button text="Close" onAction="#handleCloseButton" style="-fx-font-size: 14px; -fx-padding: 10;" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10"/>
+</AnchorPane>
