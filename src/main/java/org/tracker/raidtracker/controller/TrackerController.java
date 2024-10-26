@@ -267,9 +267,7 @@ public class TrackerController {
                 rbList.getItems().add(bossName);
             }
             updateButtonStyle(bossBox, !isInList);
-            rssFeedService.monitorRssFeed(message -> {
-                Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-            });
+            rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
             statusLabel.setText(getBossStatus(bossName));
         });
 
