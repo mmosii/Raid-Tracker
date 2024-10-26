@@ -135,9 +135,7 @@ public class TrackerController {
             hunter.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             phoenix.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             rssFeedService.getRbTime().clear();
-            rssFeedService.monitorRssFeed(message -> {
-                Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-            });
+            rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
         });
 
         asterios.setOnAction(e -> {
@@ -149,9 +147,7 @@ public class TrackerController {
             hunter.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             phoenix.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             rssFeedService.getRbTime().clear();
-            rssFeedService.monitorRssFeed(message -> {
-                Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-            });
+            rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
         });
 
         medea.setOnAction(e -> {
@@ -163,9 +159,7 @@ public class TrackerController {
             hunter.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             phoenix.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             rssFeedService.getRbTime().clear();
-            rssFeedService.monitorRssFeed(message -> {
-                Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-            });
+            rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
         });
 
         hunter.setOnAction(e -> {
@@ -189,9 +183,7 @@ public class TrackerController {
             medea.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             hunter.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             rssFeedService.getRbTime().clear();
-            rssFeedService.monitorRssFeed(message -> {
-                Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-            });
+            rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
         });
 
         removeBossButton.setOnAction(e -> {
@@ -213,9 +205,7 @@ public class TrackerController {
         new Thread(() -> {
             while (true) {
                 Platform.runLater(() -> statusLabel.setText("Updated: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))));
-                rssFeedService.monitorRssFeed(message -> {
-                    Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-                });
+                rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException ex) {
@@ -235,9 +225,7 @@ public class TrackerController {
     private void addNewBoss(String bossName) {
         rssFeedService.addBoss(bossName);
         rbList.getItems().add(bossName);
-        rssFeedService.monitorRssFeed(message -> {
-            Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-        });
+        rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
     }
 
     private void removeBoss(String bossName) {
@@ -289,20 +277,11 @@ public class TrackerController {
 
         Button copyButton = new Button("");
         switch (bossName) {
-            case "Cabrio":
-                copyButton.setText("CEM");
-                break;
-            case "Kernon":
-                copyButton.setText("TOI 8");
-                break;
-            case "Golkonda":
-                copyButton.setText("TOI 11");
-                break;
-            case "Hallate":
-                copyButton.setText("TOI 3");
-                break;
-            default:
-                copyButton.setText("⎘");
+            case "Cabrio" -> copyButton.setText("CEM");
+            case "Kernon" -> copyButton.setText("TOI 8");
+            case "Golkonda" -> copyButton.setText("TOI 11");
+            case "Hallate" -> copyButton.setText("TOI 3");
+            default -> copyButton.setText("⎘");
         }
         copyButton.setPrefWidth(50);
         copyButton.setPrefHeight(50);
@@ -323,20 +302,11 @@ public class TrackerController {
             ClipboardContent content = new ClipboardContent();
 
             switch (bossName) {
-                case "Kernon":
-                    content.putString("/target Chest of Kernon");
-                    break;
-                case "Golkonda":
-                    content.putString("/target Chest of Golkonda");
-                    break;
-                case "Cabrio":
-                    content.putString("/target Coffer of the Dead");
-                    break;
-                case "Hallate":
-                    content.putString("/target Hallate's chest");
-                    break;
-                default:
-                    content.putString(bossName);
+                case "Kernon" -> content.putString("/target Chest of Kernon");
+                case "Golkonda" -> content.putString("/target Chest of Golkonda");
+                case "Cabrio" -> content.putString("/target Coffer of the Dead");
+                case "Hallate" -> content.putString("/target Hallate's chest");
+                default -> content.putString(bossName);
             }
             clipboard.setContent(content);
 
