@@ -88,15 +88,11 @@ public class RssFeedService {
     }
 
     public LocalDateTime getRespawnTime(String bossName) {
-        switch (bossName) {
-            case "Cabrio":
-                return rbTime.get("Shilen's Messenger Cabrio");
-            case "Golkonda":
-                return rbTime.get("Longhorn Golkonda");
-            case "Hallate":
-                return rbTime.get("Death Lord Hallate");
-            default:
-                return rbTime.get(bossName);
-        }
+        return switch (bossName) {
+            case "Cabrio" -> rbTime.get("Shilen's Messenger Cabrio");
+            case "Golkonda" -> rbTime.get("Longhorn Golkonda");
+            case "Hallate" -> rbTime.get("Death Lord Hallate");
+            default -> rbTime.get(bossName);
+        };
     }
 }

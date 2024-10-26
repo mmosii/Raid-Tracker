@@ -3,11 +3,8 @@ package org.tracker.raidtracker.controller;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.Clipboard;
@@ -15,8 +12,6 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.tracker.raidtracker.service.RssFeedService;
 
@@ -182,9 +177,7 @@ public class TrackerController {
             medea.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             phoenix.setStyle("-fx-font-size: 16px; -fx-background-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;");
             rssFeedService.getRbTime().clear();
-            rssFeedService.monitorRssFeed(message -> {
-                Platform.runLater(() -> consoleArea.appendText(message + "\n"));
-            });
+            rssFeedService.monitorRssFeed(message -> Platform.runLater(() -> consoleArea.appendText(message + "\n")));
         });
 
         phoenix.setOnAction(e -> {
